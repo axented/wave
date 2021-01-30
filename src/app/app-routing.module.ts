@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () =>
-      import('./unauth/regiser/register.module')
+      import('./unauth/register/register.module')
         .then((m) => m.RegisterModule)
   }
 ];
