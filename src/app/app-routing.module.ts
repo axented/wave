@@ -23,10 +23,10 @@ const routes: Routes = [
         .then((m) => m.RegisterModule)
   },
   {
-    path: 'dashboard',
+    path: 'auth',
     loadChildren: () =>
-      import('./auth/dashboard/dashboard.module')
-        .then((m) => m.DashboardModule)
+      import('./auth/auth.module')
+        .then((m) => m.AuthModule)
   },
 ];
 
