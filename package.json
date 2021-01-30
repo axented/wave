@@ -72,6 +72,7 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/jquery": "^3.5.5",
     "@types/node": "^12.11.1",
+    "@types/select2": "^4.0.53",
     "angular2-template-loader": "^0.6.2",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
