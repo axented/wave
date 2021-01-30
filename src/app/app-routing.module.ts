@@ -21,7 +21,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./unauth/register/register.module')
         .then((m) => m.RegisterModule)
-  }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./auth/dashboard/dashboard.module')
+        .then((m) => m.DashboardModule)
+  },
 ];
 
 @NgModule({
