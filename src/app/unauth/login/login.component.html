@@ -44,8 +44,12 @@
                             <!-- Social Login -->
                             <div class="social-login mb-3">
                                 <span>Login with</span>
-                                <a href (click)="facebookLogin()" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href (click)="googleLogin()" class="google"><i class="fab fa-google"></i></a>
+                                <a href="javascript:void(0)" (click)="facebookLogin()" class="facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="javascript:void(0)" (click)="googleLogin()" class="google">
+                                    <i class="fab fa-google"></i>
+                                </a>
                             </div>
                             <!-- /Social Login -->
                             <div class="text-center dont-have">Don't have an account yet? <a [routerLink]="'/register'">Register</a></div>
