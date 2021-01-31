@@ -38,7 +38,7 @@
 				</span>
 				<span>Admin</span>
 			</a>
-			<div class="dropdown-menu" id="collapse">
+			<div class="dropdown-menu" id="collapse" [(ngbCollapse)]="userCollapsed">
 				<a class="dropdown-item" [routerLink]="'/profile'"><i data-feather="user" class="mr-1"></i> Profile</a>
 				<a class="dropdown-item" [routerLink]="'/setting/settings'"><i data-feather="settings" class="mr-1"></i> Settings</a>
 				<a class="dropdown-item" [routerLink]="'/login-form'"><i data-feather="log-out" class="mr-1"></i> Logout</a>
