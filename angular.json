@@ -40,14 +40,14 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",  
-              "node_modules/bootstrap/dist/js/bootstrap.min.js", 
-              "node_modules/datatables.net/js/jquery.dataTables.js",             
-              "node_modules/moment/min/moment.min.js",             
-              "node_modules/select2/dist/js/select2.min.js",             
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/select2/dist/js/select2.min.js",
               "node_modules/fullcalendar/main.min.js",
-              "node_modules/raphael/raphael.js", 
-              "node_modules/apexcharts/dist/apexcharts.min.js" 
+              "node_modules/raphael/raphael.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           },
           "configurations": {
@@ -138,6 +138,10 @@
               "devServerTarget": "mexiwave:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

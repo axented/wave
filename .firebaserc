@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "wave-999b8": {
+      "hosting": {
+        "mexiwave": [
+          "wave-999b8"
+        ]
+      }
+    }
+  }
+}
