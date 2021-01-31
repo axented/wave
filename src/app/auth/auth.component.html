@@ -38,10 +38,16 @@
 				</span>
 				<span>Admin</span>
 			</a>
-			<div class="dropdown-menu" id="collapse" [(ngbCollapse)]="userCollapsed">
-				<a class="dropdown-item" [routerLink]="'/profile'"><i data-feather="user" class="mr-1"></i> Profile</a>
-				<a class="dropdown-item" [routerLink]="'/setting/settings'"><i data-feather="settings" class="mr-1"></i> Settings</a>
-				<a class="dropdown-item" [routerLink]="'/login-form'"><i data-feather="log-out" class="mr-1"></i> Logout</a>
+			<div class="dropdown-menu" [(ngbCollapse)]="userCollapsed">
+				<a class="dropdown-item" [routerLink]="'profile'">
+					<i data-feather="user" class="mr-1"></i> Profile
+			    </a>
+				<a class="dropdown-item" [routerLink]="'settings'">
+					<i data-feather="settings" class="mr-1"></i> Settings
+				</a>
+				<a ref="javascript:void(0)" class="dropdown-item" (click)="logout()">
+					<i data-feather="log-out" class="mr-1"></i> Logout
+				</a>
 			</div>
 		</li>
 		<!-- /User Menu -->
@@ -57,26 +63,26 @@
 	<div class="sidebar-inner slimscroll">
 		<div id="sidebar-menu" class="sidebar-menu">
 			<ul>
-				<li [class.active]="page === 'dashboard'">
-					<a [routerLink]="'/index'"><i data-feather="home"></i> <span>Dashboard</span></a>
+				<li [class.active]="page === '/auth/dashboard'">
+					<a [routerLink]="'dashboard'"><i data-feather="home"></i> <span>Dashboard</span></a>
 				</li>
-				<li>
-					<a [routerLink]="'/customers'"><i data-feather="users"></i> <span>Customers</span></a>
+				<li [class.active]="page === '/auth/customers'">
+					<a [routerLink]="'customers'"><i data-feather="users"></i> <span>Customers</span></a>
 				</li>
-				<li>
-					<a [routerLink]="'/estimates'"><i data-feather="file-text"></i> <span>Estimates</span></a>
+				<li [class.active]="page === '/auth/estimates'">
+					<a [routerLink]="'estimates'"><i data-feather="file-text"></i> <span>Estimates</span></a>
 				</li>
-				<li [class.active]="page === 'invoice-reports'">
-					<a [routerLink]="'/invoice-reports'"><i data-feather="clipboard"></i> <span>Invoices</span></a>
+				<li [class.active]="page === '/auth/invoices'">
+					<a [routerLink]="'/invoices'"><i data-feather="clipboard"></i> <span>Invoices</span></a>
 				</li>
-				<li>
-					<a [routerLink]="'/payments'"><i data-feather="credit-card"></i> <span>Payments</span></a>
+				<li [class.active]="page === '/auth/payments'">
+					<a [routerLink]="'payments'"><i data-feather="credit-card"></i> <span>Payments</span></a>
 				</li>
-				<li>
-					<a [routerLink]="'/expenses'"><i data-feather="package"></i> <span>Expenses</span></a>
+				<li [class.active]="page === '/auth/expenses'">
+					<a [routerLink]="'expenses'"><i data-feather="package"></i> <span>Expenses</span></a>
 				</li>
-				<li [class.active]="page === 'settings'">
-					<a [routerLink]="'setting/settings'"><i data-feather="settings"></i> <span>Settings</span></a>
+				<li [class.active]="page === '/auth/settings'">
+					<a [routerLink]="'settings'"><i data-feather="settings"></i> <span>Settings</span></a>
 				</li>
 			</ul>
 		</div>

@@ -15,7 +15,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
   public userCollapsed = true;
   public page = '';
 
-  constructor(public router: Router) {
+  constructor(
+    public auth: AngularFireAuth,
+    public router: Router
+  ) { 
     router.events.subscribe((event: Event) => {
       this.page = this.router.url;
     });
@@ -33,6 +36,15 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
   	Feather.replace()
+  }
+
+  logout() {
+    this.auth.signOut()
+    .then((result) => {
+      this.router.navigate(['/'])
+    }).catch((error) => {
+      console.error(error)
+    })
   }
 
 }
