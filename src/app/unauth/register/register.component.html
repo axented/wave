@@ -12,25 +12,45 @@
                         <p class="account-subtitle">Access to our dashboard</p>
                         
                         <!-- Form -->
-                        <form>
+                        <form #registerForm="ngForm">
                             <div class="form-group">
-                                <label class="form-control-label">Name</label>
-                                <input class="form-control" type="text">
+                                <label for="email" class="form-control-label">Email Address</label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    [(ngModel)]="email"
+                                    class="form-control"
+                                    type="text"
+                                    required>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Email Address</label>
-                                <input class="form-control" type="text">
+                                <label for="password" class="form-control-label">Password</label>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    [(ngModel)]="password"
+                                    class="form-control"
+                                    type="password"
+                                    required>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Password</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Confirm Password</label>
-                                <input class="form-control" type="text">
+                                <label for="confirmPassword" class="form-control-label">Confirm Password</label>
+                                <input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    [(ngModel)]="confirmPassword"
+                                    class="form-control"
+                                    type="password"
+                                    required>
                             </div>
                             <div class="form-group mb-0">
-                                <button class="btn btn-lg btn-block btn-primary" type="button">Register</button>
+                                <button
+                                    class="btn btn-lg btn-block btn-primary"
+                                    [disabled]="!registerForm.form.valid"
+                                    (click)="registerUser()"
+                                    type="button">
+                                    Register
+                                </button>
                             </div>
                         </form>
                         <!-- /Form -->
@@ -42,7 +62,12 @@
                         <!-- Social Login -->
                         <div class="social-login">
                             <span>Register with</span>
-                            <a href="javascript:void(0)" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="javascript:void(0)" class="google"><i class="fab fa-google"></i></a>
+                            <a href="javascript:void(0)" (click)="facebookLogin()" class="facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="javascript:void(0)" (click)="googleLogin()" class="google">
+                                <i class="fab fa-google"></i>
+                            </a>
                         </div>
                         <!-- /Social Login -->
                         <div class="text-center dont-have">Already have an account? <a [routerLink]="'/login-form'">Login</a></div>
