@@ -21,6 +21,30 @@ const routes: Routes = [
         loadChildren: () =>
           import('./customers/customers.module')
           .then((m) => m.CustomersModule)
+      },
+      {
+          path: 'estimates',
+          loadChildren: () =>
+            import('./estimates/estimates.module')
+            .then((m) => m.EstimatesModule)
+      },
+      {
+          path: 'invoices',
+          loadChildren: () =>
+            import('./invoices/invoices.module')
+            .then((m) => m.InvoicesModule)
+      },
+      {
+          path: 'payments',
+          loadChildren: () =>
+            import('./payments/payments.module')
+            .then((m) => m.PaymentsModule)
+      },
+      {
+          path: 'expenses',
+          loadChildren: () =>
+            import('./expenses/expenses.module')
+            .then((m) => m.ExpensesModule),
       }
     ]
   }
