@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonServiceService } from '../common-service.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddCustomerComponent } from './add-customer/add-customer.component';
+
 
 @Component({
   selector: 'app-customers',
@@ -10,7 +13,10 @@ export class CustomersComponent implements OnInit {
   customers: any = [];
   errorMessage: string = '';
 
-  constructor(public commonService: CommonServiceService) {}
+  constructor(
+    public commonService: CommonServiceService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.getCustomers();
@@ -20,9 +26,6 @@ export class CustomersComponent implements OnInit {
     this.commonService.getCustomers().subscribe(
       (res) => {
         this.customers = res;
-        $(function () {
-          $('table').DataTable();
-        });
       },
       (error) => (this.errorMessage = <any>error)
     );
@@ -30,5 +33,15 @@ export class CustomersComponent implements OnInit {
 
   filter() {
     
+  }
+
+  openAddCustomerModal() {
+    const modalRef = this.modalService.open(
+      AddCustomerComponent,
+      {
+        animation: true,
+        size: 'lg'
+      }
+    );
   }
 }
