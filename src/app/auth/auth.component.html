@@ -36,7 +36,12 @@
 					<img src="https://avatars.dicebear.com/api/human//avatar-01.svg" alt="">
 					<span class="status online"></span>
 				</span>
-				<span>Admin</span>
+				<span *ngIf="currentUser.displayName; else displayEmail">
+				    {{ currentUser.displayName }}
+				</span>
+				<ng-template #displayEmail>
+				    {{ currentUser.email }}
+			    </ng-template>
 			</a>
 			<div class="dropdown-menu" [(ngbCollapse)]="userCollapsed">
 				<a class="dropdown-item" [routerLink]="'profile'">

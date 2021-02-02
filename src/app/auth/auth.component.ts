@@ -14,6 +14,7 @@ import firebase from 'firebase/app';
 export class AuthComponent implements OnInit, AfterViewInit {
   public userCollapsed = true;
   public page = '';
+  public currentUser: any = '';
 
   constructor(
     public auth: AngularFireAuth,
@@ -25,6 +26,9 @@ export class AuthComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.auth.currentUser.then((user) => 
+      this.currentUser = user
+    )
   }
 
   user() {
