@@ -2,10 +2,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -19,7 +19,39 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@services/*": [
+        "app/shared/services/*"
+      ],
+      "@guards/*": [
+        "app/shared/guards/*"
+      ],
+      "@interceptors/*": [
+        "app/shared/interceptors/*"
+      ],
+      "@cookies/*": [
+        "app/shared/cookies/*"
+      ],
+      "@server-responses/*": [
+        "app/shared/server-responses/*"
+      ],
+      "@constants/*": [
+        "app/shared/constants/*"
+      ],
+      "@payloads/*": [
+        "app/shared/payloads/*"
+      ],
+      "@interfaces/*": [
+        "app/shared/interfaces/*"
+      ],
+      "@models/*": [
+        "app/shared/models/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
