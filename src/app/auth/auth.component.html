@@ -1,6 +1,6 @@
 <!-- Header -->
 <div class="header">
-			
+
 	<!-- Logo -->
 	<div class="header-left">
 		<a [routerLink]="''" class="logo">
@@ -11,26 +11,26 @@
 		</a>
 	</div>
 	<!-- /Logo -->
-	
+
 	<!-- Sidebar Toggle -->
 	<a href="javascript:void(0);" id="toggle_btn">
 		<i class="fas fa-bars"></i>
 	</a>
 	<!-- /Sidebar Toggle -->
-	
-	
+
+
 	<!-- Mobile Menu Toggle -->
 	<a class="mobile_btn" id="mobile_btn">
 		<i class="fas fa-bars"></i>
 	</a>
 	<!-- /Mobile Menu Toggle -->
-	
+
 	<!-- Header Menu -->
 	<ul class="nav user-menu">
-		
+
 		<!-- User Menu -->
 		<li class="nav-item dropdown has-arrow main-drop" id="dropdown">
-			<a href="javascript:void(0)" class="dropdown-toggle nav-link" (click)="user()" 
+			<a href="javascript:void(0)" class="dropdown-toggle nav-link" (click)="user()"
 			[attr.aria-expanded]="!userCollapsed" aria-controls="collapse">
 				<span class="user-img">
 					<img src="https://avatars.dicebear.com/api/human//avatar-01.svg" alt="">
@@ -41,7 +41,7 @@
 				</span>
 				<ng-template #displayEmail>
 				    {{ currentUser.email }}
-			    </ng-template>
+			  </ng-template>
 			</a>
 			<div class="dropdown-menu" [(ngbCollapse)]="userCollapsed">
 				<a class="dropdown-item" [routerLink]="'profile'">
@@ -56,14 +56,14 @@
 			</div>
 		</li>
 		<!-- /User Menu -->
-		
+
 	</ul>
 	<!-- /Header Menu -->
-	
+
 </div>
 <!-- /Header -->
 
-<!-- Sidebar -->		
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 	<div class="sidebar-inner slimscroll">
 		<div id="sidebar-menu" class="sidebar-menu">
@@ -78,7 +78,7 @@
 					<a [routerLink]="'estimates'"><i data-feather="file-text"></i> <span>Estimates</span></a>
 				</li>
 				<li [class.active]="page === '/auth/invoices'">
-					<a [routerLink]="'/invoices'"><i data-feather="clipboard"></i> <span>Invoices</span></a>
+					<a [routerLink]="'invoices'"><i data-feather="clipboard"></i> <span>Invoices</span></a>
 				</li>
 				<li [class.active]="page === '/auth/payments'">
 					<a [routerLink]="'payments'"><i data-feather="credit-card"></i> <span>Payments</span></a>
@@ -88,6 +88,9 @@
 				</li>
 				<li [class.active]="page === '/auth/settings'">
 					<a [routerLink]="'settings'"><i data-feather="settings"></i> <span>Settings</span></a>
+				</li>
+				<li [class.active]="page === '/auth/settings'">
+					<a [routerLink]="'products-services'"><i data-feather="settings"></i> <span>Products & Services</span></a>
 				</li>
 			</ul>
 		</div>

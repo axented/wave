@@ -11,7 +11,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'dashboard', 
+        path: 'dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module')
           .then(m => m.DashboardModule)
@@ -45,7 +45,13 @@ const routes: Routes = [
           loadChildren: () =>
             import('./expenses/expenses.module')
             .then((m) => m.ExpensesModule),
-      }
+      },
+      {
+        path: 'products-services',
+        loadChildren: () =>
+          import('./products-services/products-services.module')
+          .then((m) => m.ProductsServicesModule),
+      },
     ]
   }
 ];
