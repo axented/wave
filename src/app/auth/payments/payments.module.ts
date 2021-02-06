@@ -5,6 +5,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { PaymentsComponent } from './payments.component';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { NgSelect2Module } from 'ng-select2';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [ PaymentsComponent ],
@@ -13,7 +14,10 @@ import { NgSelect2Module } from 'ng-select2';
     PaymentsRoutingModule,
     FormsModule,
     DataTablesModule,
-    NgSelect2Module
+    NgSelect2Module,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    })
   ]
 })
 export class PaymentsModule { }
