@@ -1,7 +1,7 @@
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 	<div class="content container-fluid">
-	
+
 		<!-- Page Header -->
 		<div class="page-header">
 			<div class="row align-items-center">
@@ -13,7 +13,7 @@
 					</ul>
 				</div>
 				<div class="col-auto">
-					<a [routerLink]="'/add-expenses'"  class="btn btn-primary mr-1">
+					<a class="btn btn-primary mr-1">
 						<i class="fas fa-plus"></i>
 					</a>
 					<a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<!-- /Page Header -->
-   
+
 		<!-- Search Filter -->
 		<div id="filter_inputs" class="card filter-card">
 			<div class="card-body pb-0">
@@ -66,10 +66,10 @@
 			</div>
 		</div>
 		<!-- /Search Filter -->
-		
+
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="card card-table"> 
+				<div class="card card-table">
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-center table-hover datatable">
@@ -100,10 +100,10 @@
 											<span *ngIf="expese.status === 'Pending'" class="badge badge-pill bg-danger-light">Pending</span>
 										</td>
 										<td class="text-right">
-											<a [routerLink]="'/edit-expenses'" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+											<a [routerLink]="'/edit-expenses'" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a>
 											<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger"><i class="far fa-trash-alt mr-1"></i>Delete</a>
 										</td>
-									</tr>									
+									</tr>
 								</tbody>
 							</table>
 						</div>

@@ -6,7 +6,13 @@ const routes: Routes = [
 	{
 		path : '',
 		component : ExpensesComponent
-	}
+	},
+	{
+    path: 'add-expenses',
+    loadChildren: () =>
+      import('./add-expenses/add-expenses.module')
+      .then((m) => m.AddExpensesModule)
+  },
 ];
 
 @NgModule({
