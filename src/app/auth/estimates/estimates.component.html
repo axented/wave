@@ -12,7 +12,7 @@
 					</ul>
 				</div>
 				<div class="col-auto">
-					<a [routerLink]="'/add-estimate'" class="btn btn-primary mr-1">
+					<a href="javascript:void(0)" (click)="openAddEstimateModal()" class="btn btn-primary mr-1">
 						<i class="fas fa-plus"></i>
 					</a>
 					<a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Search Filter -->
 		<div id="filter_inputs" class="card filter-card">
 			<div class="card-body pb-0">
@@ -72,11 +72,11 @@
 			</div>
 		</div>
 		<!-- /Search Filter -->
-		
+
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="card card-table"> 
-					<div class="card-body">						
+				<div class="card card-table">
+					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-stripped table-hover datatable">
 								<thead class="thead-light">
@@ -95,12 +95,12 @@
 										<td><a [routerLink]="'/view-estimate'">{{estimate.number}}</a></td>
 										<td>
 											<h2 class="table-avatar">
-												<a [routerLink]="'/profile'"><img class="avatar avatar-sm mr-2 avatar-img rounded-circle" src="{{estimate.customer_img}}" alt="User Image">{{estimate.customer_name}}</a>
+												<a [routerLink]="'/profile'" *ngIf="estimate.customer"><img class="avatar avatar-sm mr-2 avatar-img rounded-circle" src="{{estimate.customer.img}}" alt="User Image">{{estimate.customer.name}}</a>
 											</h2>
 										</td>
-										<td>{{estimate.estimate_date | date : 'dd MMM yyyy' }}</td>
-										<td>{{estimate.expiry_date | date : 'dd MMM yyyy' }}</td>
-										<td>{{estimate.amount}}</td>
+										<td>{{estimate.estimateDate | date : 'dd MMM yyyy' }}</td>
+										<td>{{estimate.expiryDate | date : 'dd MMM yyyy' }}</td>
+										<td>$ {{estimate.amount}}</td>
 										<td>
 											<span *ngIf="estimate.status === 'Accepted'" class="badge bg-success-light">{{estimate.status}}</span>
 											<span *ngIf="estimate.status === 'Declined'" class="badge bg-danger-light">{{estimate.status}}</span>
@@ -126,7 +126,7 @@
 								</tbody>
 							</table>
 						</div>
-				   
+
 					</div>
 				</div>
 			</div>
