@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { FirestoreService } from '@services/firestore.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Customer } from '@models/customer';
 
 @Component({
@@ -16,10 +17,13 @@ export class CustomersComponent implements OnInit {
   constructor(
     private firestoreService: FirestoreService,
     private modalService: NgbModal,
+    private auth: AngularFireAuth
   ) { }
 
   ngOnInit(): void {
-    this.getCustomers()
+    this.auth.currentUser.then((user) => {
+      this.getCustomers(user)
+    })
   }
 
   deleteCustomer(customer: Customer) {
@@ -37,29 +41,31 @@ export class CustomersComponent implements OnInit {
     modalRef.componentInstance.id = id
   }
 
-  private getCustomers() {
+  private getCustomers(currentUser) {
     this.firestoreService.getCustomers().subscribe(
       res => {
         this.customers = []
-        res.forEach((customer: any) => {
-          this.customers.push({
-            id: customer.payload.doc.id,
-            amountDue: customer.payload.doc.data().amountDue,
-            contactName: customer.payload.doc.data().contactName,
-            currency: customer.payload.doc.data().currency,
-            email: customer.payload.doc.data().email,
-            phone: customer.payload.doc.data().phone,
-            registeredOn: customer.payload.doc.data().registeredOn,
-            img: customer.payload.doc.data().img,
-            name: customer.payload.doc.data().name,
-            website: customer.payload.doc.data().website,
-            role: customer.payload.doc.data().role,
-            status: customer.payload.doc.data().status,
-            billing: customer.payload.doc.data().billing,
-            shipping: customer.payload.doc.data().shipping,
+          res.forEach((customer: any) => {
+            if(customer.payload.doc.data().ownerId === currentUser.uid) {
+              this.customers.push({
+                id: customer.payload.doc.id,
+                amountDue: customer.payload.doc.data().amountDue,
+                contactName: customer.payload.doc.data().contactName,
+                currency: customer.payload.doc.data().currency,
+                email: customer.payload.doc.data().email,
+                phone: customer.payload.doc.data().phone,
+                registeredOn: customer.payload.doc.data().registeredOn,
+                img: customer.payload.doc.data().img,
+                name: customer.payload.doc.data().name,
+                website: customer.payload.doc.data().website,
+                role: customer.payload.doc.data().role,
+                status: customer.payload.doc.data().status,
+                billing: customer.payload.doc.data().billing,
+                shipping: customer.payload.doc.data().shipping,
+             })
+            }
           })
-        })
-      },
+        },
       (error) => (this.errorMessage = <any>error)
     )
   }
