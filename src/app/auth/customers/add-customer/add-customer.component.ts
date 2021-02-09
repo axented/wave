@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Customer } from '@models/customer';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-add-customer',
@@ -43,6 +44,7 @@ export class AddCustomerComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
+    private auth: AngularFireAuth,
     private fb: FormBuilder,
     private firestoreService: FirestoreService,
     private toastr: ToastrService,
@@ -68,37 +70,40 @@ export class AddCustomerComponent implements OnInit {
   }
 
   submitCustomer(form: FormGroup) {
-    let customer = new Customer({
-      id: '',
-      amountDue: 0,
-      billing: this.billingForm.value,
-      contactName: form.get('contactName')?.value,
-      currency: form.get('currency')?.value,
-      email: form.get('email')?.value,
-      img: 'https://avatars.dicebear.com/api/human/-01.svg',
-      name: form.get('name')?.value,
-      phone: form.get('phone')?.value,
-      registeredOn: moment().format('ll'),
-      role: 'Customer',
-      shipping: this.shippingForm.value,
-      status: 'Active',
-      website: form.get('website')?.value,
+    this.auth.currentUser.then((user) => {
+      let customer = new Customer({
+        id: '',
+        amountDue: 0,
+        billing: this.billingForm.value,
+        contactName: form.get('contactName')?.value,
+        currency: form.get('currency')?.value,
+        email: form.get('email')?.value,
+        img: 'https://avatars.dicebear.com/api/human/-01.svg',
+        name: form.get('name')?.value,
+        ownerId: user.uid,
+        phone: form.get('phone')?.value,
+        registeredOn: moment().format('ll'),
+        role: 'Customer',
+        shipping: this.shippingForm.value,
+        status: 'Active',
+        website: form.get('website')?.value,
+      })
+      if (this.id == '') {
+        this.firestoreService.createCustomer(customer).then(() => {
+          this.toastr.success('Customer added')
+          this.activeModal.close()
+        }, (error) => {
+          console.error('Something went wrong: ', error);
+        })
+      } else {
+        this.firestoreService.updateCustomer(this.id, customer).then(() => {
+          this.toastr.success('Changes saved')
+          this.activeModal.close()
+        }, (error) => {
+          console.error('Something went wrong: ', error);
+        })
+      }
     })
-    if (this.id == '') {
-      this.firestoreService.createCustomer(customer).then(() => {
-        this.toastr.success('Customer added')
-        this.activeModal.close()
-      }, (error) => {
-        console.error('Something went wrong: ', error);
-      })
-    } else {
-      this.firestoreService.updateCustomer(this.id, customer).then(() => {
-        this.toastr.success('Changes saved')
-        this.activeModal.close()
-      }, (error) => {
-        console.error('Something went wrong: ', error);
-      })
-    }
   }
 
   private getCustomer() {

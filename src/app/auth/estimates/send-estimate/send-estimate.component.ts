@@ -1,24 +1,30 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FirestoreService } from '@services/firestore.service'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '@models/product';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
-  selector: 'app-add-products',
-  templateUrl: './add-products.component.html',
+  selector: 'app-send-estimate',
+  templateUrl: './send-estimate.component.html',
+  styleUrls: ['./send-estimate.component.scss'],
   providers: [ToastrService]
 })
-export class AddProductsComponent implements OnInit {
+export class SendEstimateComponent implements OnInit {
   @Input() id: string
 
-  productForm: FormGroup = this.fb.group({
-    description: ['', Validators.required],
-    name: ['', Validators.required],
-    price: ['', Validators.required],
+  currentUser: any = ''
+  sendForm: FormGroup = this.fb.group({
+    from: ['', Validators.required],
+    emails: this.fb.array([this.createEmail()]),
+    subject: ['', Validators.required],
+    message: ['', Validators.required],
+    sendToMe: [false],
+    attachPDF: [false]
   })
+  emailsForm: FormArray = this.fb.array([])
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -29,15 +35,28 @@ export class AddProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.auth.currentUser.then((user) => {
+      this.currentUser = user
+    })
+
     if (this.id != '')
-      this.getProduct()
+      this.getEstimate()
   }
 
-  setSubmitText(): string {
-    if (this.id == '')
-      return 'Add Product'
-    else
-      return 'Save changes'
+  addEmail() {
+    this.emailsForm = this.sendForm.get('emails') as FormArray
+    this.emailsForm.push(this.createEmail())
+  }
+
+  createEmail(): FormGroup {
+    return this.fb.group({
+      email: ['', Validators.required]
+    })
+  }
+
+  removeEmail(emailIndex: number) {
+    const to = this.sendForm.get('emails') as FormArray
+    to.removeAt(emailIndex)
   }
 
   submitProduct(form: FormGroup) {
@@ -69,13 +88,15 @@ export class AddProductsComponent implements OnInit {
     })
   }
 
-  private getProduct() {
-    this.firestoreService.getProduct(this.id).subscribe((res: any) => {
-      this.productForm.patchValue({
-        description: res.payload.data().description,
-        name: res.payload.data().name,
-        price: res.payload.data().price,
-      })
+  private getEstimate() {
+    let once = true
+    this.firestoreService.getEstimate(this.id).subscribe((res: any) => {
+      if (once) {
+        this.sendForm.patchValue({
+          from: this.currentUser.email,
+          subject: 'Estimate #' + res.payload.data().number + ' from Axented',
+        })
+      }
     })
   }
 }

@@ -15,9 +15,9 @@ export class CustomersComponent implements OnInit {
   errorMessage: string = ''
 
   constructor(
+    private auth: AngularFireAuth,
     private firestoreService: FirestoreService,
     private modalService: NgbModal,
-    private auth: AngularFireAuth
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class CustomersComponent implements OnInit {
     this.firestoreService.deleteCustomer(customer.id)
   }
 
-  openAddCustomerModal(id: string) {
+  openCustomerModal(id: string) {
     const modalRef = this.modalService.open(
       AddCustomerComponent,
       {
@@ -50,18 +50,19 @@ export class CustomersComponent implements OnInit {
               this.customers.push({
                 id: customer.payload.doc.id,
                 amountDue: customer.payload.doc.data().amountDue,
+                billing: customer.payload.doc.data().billing,
                 contactName: customer.payload.doc.data().contactName,
                 currency: customer.payload.doc.data().currency,
                 email: customer.payload.doc.data().email,
-                phone: customer.payload.doc.data().phone,
-                registeredOn: customer.payload.doc.data().registeredOn,
                 img: customer.payload.doc.data().img,
                 name: customer.payload.doc.data().name,
-                website: customer.payload.doc.data().website,
+                ownerId: customer.payload.doc.data().ownerId,
+                phone: customer.payload.doc.data().phone,
+                registeredOn: customer.payload.doc.data().registeredOn,
                 role: customer.payload.doc.data().role,
-                status: customer.payload.doc.data().status,
-                billing: customer.payload.doc.data().billing,
                 shipping: customer.payload.doc.data().shipping,
+                status: customer.payload.doc.data().status,
+                website: customer.payload.doc.data().website,
              })
             }
           })

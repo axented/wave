@@ -10,6 +10,7 @@ export class Customer {
   email: string
   img: string
   name: string
+  ownerId: string
   phone: string
   registeredOn: string
   role: string
@@ -26,6 +27,7 @@ export class Customer {
     this.email = attrs.email
     this.img = attrs.img
     this.name = attrs.name
+    this.ownerId = attrs.ownerId
     this.phone = attrs.phone
     this.registeredOn = attrs.registeredOn
     this.role = attrs.role

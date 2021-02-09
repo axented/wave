@@ -11,8 +11,13 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Customer:</label>
-										<select width="100%" formControlName="customer">
-											<option>Select Customer</option>
+										<select
+										width="100%"
+										class="form-control"
+										[(ngModel)]="customer"
+										formControlName="customer">
+											<option value="" selected>Select Customer</option>
+											<option *ngIf="id != ''" value="{{customer}}">{{ customer.name }}</option>
 											<option *ngFor="let customer of customers" [ngValue]="customer">{{customer.name}}</option>
 										</select>
 									</div>
@@ -20,25 +25,21 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>From</label>
-										<div class="cal-icon">
-											<input
-											class="form-control datetimepicker"
-											type="date"
-											formControlName="fromDate"
-											required>
-										</div>
+										<input
+										class="form-control datetimepicker"
+										type="date"
+										formControlName="fromDate"
+										required>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>To</label>
-										<div class="cal-icon">
-											<input
-											class="form-control datetimepicker"
-											type="date"
-											formControlName="toDate"
-											required>
-										</div>
+										<input
+										class="form-control datetimepicker"
+										type="date"
+										formControlName="toDate"
+										required>
 									</div>
 								</div>
 								<div class="col-md-4 mt-3">
@@ -73,19 +74,23 @@
 											<th>Items</th>
 											<th>Quantity</th>
 											<th>Price</th>
+											<th>Tax</th>
 											<th>Amount</th>
 											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
-											<tr formArrayName="items" *ngFor="let item of estimateForm.get('items')['controls']; let itemIndex = index;">
-												<ng-container [formGroupName]="itemIndex">
+											<tr formArrayName="products" *ngFor="let product of estimateForm.get('products')['controls']; let productIndex = index;">
+												<ng-container [formGroupName]="productIndex">
 												<td>
 													<input
-                    			formControlName="name"
-                    			class="form-control"
-                    			type="text"
-                    			required>
+													type="text"
+													class="form-control"
+													formControlName="product"
+													[resultFormatter]="formatMatches"
+													[inputFormatter]="formatMatches"
+													[ngbTypeahead]="search"
+													(selectItem)="selectedProduct($event, product)">
 												</td>
 												<td>
 													<input
@@ -102,16 +107,19 @@
                     			required>
 												</td>
 												<td>
+													{{ '+ ' + tax + '%'}}
+												</td>
+												<td>
 													<input
                     			class="form-control"
                     			type="text"
-													value="{{ getAmount(itemIndex) }}"
+													value="{{ getAmount(productIndex) }}"
                     			required
 													disabled>
 												</td>
 												<td class="add-remove text-right">
-													<i class="fas fa-plus-circle" (click)="addItem()"></i>
-													<i *ngIf="estimateForm.get('items').value.length > 1" class="fas fa-minus-circle" (click)="removeItem(itemIndex)"></i>
+													<i class="fas fa-plus-circle" (click)="addProduct()"></i>
+													<i *ngIf="estimateForm.get('products').value.length > 1" class="fas fa-minus-circle" (click)="removeProduct(productIndex)"></i>
 												</td>
 											</ng-container>
 											</tr>
@@ -127,14 +135,14 @@
 											<td></td>
 											<td></td>
 											<td class="text-right">Sub Total</td>
-											<td class="text-right">$ {{ getTotalAmount() }}</td>
+											<td class="text-right">$ {{ getPricesAmount() }}</td>
 										</tr>
 										<tr>
 											<td></td>
 											<td></td>
 											<td></td>
-											<td class="text-right">Discount</td>
-											<td class="text-right">$ 0</td>
+											<td class="text-right">Taxes</td>
+											<td class="text-right">$ {{ getTaxesAmount() }}</td>
 										</tr>
 										<tr>
 											<td></td>
@@ -150,6 +158,7 @@
 								<button
 								type="button"
 								class="btn btn-primary"
+								[disabled]="!estimateForm.valid"
 								(click)="submitEstimate(this.estimateForm)">
 								Add Estimate
 								</button>
