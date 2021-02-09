@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,14 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  changePass = false;
-  personalDetails = true;
-  name;
-  id;
-  key;
-  constructor(private Router: Router) {}
+  id
+  changePass = false
+  currentUser: any = ''
+  key
+  name
+  personalDetails = true
 
-  ngOnInit(): void {}
+  constructor(
+    private Router: Router,
+    private auth: AngularFireAuth,
+  ) { }
+
+  ngOnInit(): void {
+    this.auth.currentUser.then((user) => {
+      this.currentUser = user
+    })
+  }
 
   about() {
     this.changePass = false;
